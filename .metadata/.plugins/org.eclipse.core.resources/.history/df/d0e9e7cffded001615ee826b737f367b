@@ -1,0 +1,40 @@
+import java.awt.Color;
+import java.awt.Graphics2D;
+
+public class GameTextButton extends GameObject {
+	
+	private String caption;
+	private Color color = Color.GRAY;
+
+	public GameTextButton(int xx, int yy, int w, int h, String c) {
+		super(xx, yy, w, h);
+		caption = c;
+	}
+
+	@Override
+	public void draw(Graphics2D g) {
+		g.setColor(color);
+		g.drawString(caption, x - caption.length()*5, y - g.getFontMetrics().getHeight()/2);
+	}
+
+	@Override
+	public void onClick() {
+	}
+
+	@Override
+	public void onHover() {
+		color = Color.LIGHT_GRAY;
+	}
+
+	@Override
+	public void onHoverOver() {
+		color = Color.GRAY;
+	}
+
+	@Override
+	public void update(long timePassed) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

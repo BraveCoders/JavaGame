@@ -1,0 +1,48 @@
+import java.awt.event.MouseEvent;
+
+import javax.swing.event.MouseInputListener;
+
+public class GameMouse implements MouseInputListener{
+	
+	private static int x,y,state;
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		this.x = e.getX();
+		this.y = e.getY();
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		this.x = e.getX();
+		this.y = e.getY();
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		System.out.println("Mouse clicked " + e.getButton());
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		System.out.println("Mouse pressed " + e.getButton());
+		this.state = e.getButton();
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		System.out.println("Mouse released " + e.getButton());
+		this.state = 0;
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		System.out.println("Mouse entered " + e.getX() + ":" + e.getY());
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		System.out.println("Mouse exited " + e.getX() + ":" + e.getY());
+	}
+
+}

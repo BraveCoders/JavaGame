@@ -1,0 +1,12 @@
+package images;
+
+public class Key {
+	
+	private int code;
+	private char key;
+	
+	public Key(int c, char ch){
+		
+	}
+
+}

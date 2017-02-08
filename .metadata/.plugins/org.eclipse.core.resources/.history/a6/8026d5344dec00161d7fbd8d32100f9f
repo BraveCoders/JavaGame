@@ -1,0 +1,58 @@
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.Window;
+import java.awt.image.BufferedImage;
+
+import javax.swing.ImageIcon;
+
+public class GameSys extends Core {
+
+	private Image im;
+	private gameView loader;
+	private long time;
+	
+	public static void main(String args[]) {
+		new GameSys().run();
+	}
+
+	public void init() {
+		super.init();
+		// ---------------- Inicjacja Ekranu --------------
+		Window w = s.getFullScreenWindow();
+		w.setFocusTraversalKeysEnabled(false);
+
+		// ---------------- Ustawienie niwidocznego kursora --------------
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		BufferedImage cursorImage = new BufferedImage(1, 1, BufferedImage.TRANSLUCENT);
+		Point hotSpot = new Point(0, 0);
+		Cursor invisibleCursor = toolkit.createCustomCursor(cursorImage, hotSpot, "InvisibleCursor");
+		w.setCursor(invisibleCursor);
+		loader = new Loader(this);
+
+		// ---------------- Inicjacja Eventów --------------
+		GameMouse gm = new GameMouse();
+		w.addKeyListener(new Keys(this));
+		w.addMouseMotionListener(gm);
+		w.addMouseListener(gm);
+	}
+
+	@Override
+	public void draw(Graphics2D g) {
+
+			Window w = s.getFullScreenWindow();
+			g.setColor(w.getBackground());
+			g.fillRect(0, 0, s.getWidth(), s.getHeight());
+			g.setColor(new Color(255,255,255));
+			g.drawString(GameMouse.getX()+":"+GameMouse.getY(), GameMouse.getX(), GameMouse.getY());
+			g.drawString(time + "",10,30);
+	}
+
+	@Override
+	public void update(long timePassed) {
+		time = timePassed;
+	}
+}

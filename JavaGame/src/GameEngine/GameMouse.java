@@ -1,0 +1,66 @@
+package GameEngine;
+import java.awt.event.MouseEvent;
+
+import javax.swing.event.MouseInputListener;
+
+public class GameMouse implements MouseInputListener{
+	
+	private static int x,y,state;
+	private Core core;
+	
+	public GameMouse(Core c) {
+		core = c;
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		GameMouse.x = e.getX();
+		GameMouse.y = e.getY();
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		GameMouse.x = e.getX();
+		GameMouse.y = e.getY();
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		core.mouseClicked(x, y);
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		System.out.println("Mouse pressed " + e.getButton());
+		GameMouse.state = e.getButton();
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		System.out.println("Mouse released " + e.getButton());
+		GameMouse.state = 0;
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		System.out.println("Mouse entered " + e.getX() + ":" + e.getY());
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		System.out.println("Mouse exited " + e.getX() + ":" + e.getY());
+	}
+
+	public static int getX() {
+		return x;
+	}
+
+	public static int getY() {
+		return y;
+	}
+
+	public static int getState() {
+		return state;
+	}
+
+}

@@ -1,0 +1,47 @@
+package GameEngine;
+import java.awt.Graphics2D;
+import java.awt.Color;
+
+public class TestObject extends GameObject {
+	private Color color;
+	long time;
+
+	public TestObject(int xx, int yy, int w, int h) {
+		super(xx, yy, w, h);
+		color = Color.BLUE;
+		time = 0;
+	}
+
+	@Override
+	public void draw(Graphics2D g) {
+		g.setColor(color);
+		g.fillRect(x, y, width, height);
+	}
+
+	@Override
+	public void onClick() {
+		color = Color.RED;
+	}
+
+	@Override
+	public void onHover() {
+		System.out.println("OnHover " + GameMouse.getX() + ":" + GameMouse.getY());
+		color = Color.GREEN;
+	}
+
+	@Override
+	public void onHoverOver() {
+		System.out.println("OnHoverOver");
+		color = Color.BLUE;
+	}
+
+	@Override
+	public void update(long timePassed) {
+		time+=timePassed;
+		if(time>1000){
+			time-=1000;
+			x+=10;
+		}
+	}
+
+}

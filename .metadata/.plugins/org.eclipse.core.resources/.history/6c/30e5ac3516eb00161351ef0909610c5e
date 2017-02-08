@@ -1,0 +1,16 @@
+import java.awt.Graphics2D;
+
+public class GameSys extends Core {
+
+	@Override
+	public void draw(Graphics2D g) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,46 @@
+import java.awt.Cursor;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.Window;
+import java.awt.image.BufferedImage;
+
+import javax.swing.ImageIcon;
+
+public class GameSys extends Core{
+	
+	private Image im;
+	private gameView loader;
+
+	public static void main(String args[]){
+		new GameSys().run();
+	}
+	
+	public void init(){
+		super.init();
+		//----------------  Inicjacja Ekranu --------------
+		Window w = s.getFullScreenWindow();
+		w.setFocusTraversalKeysEnabled(false);
+		
+
+		//----------------  Ustawienie niwidocznego kursora --------------
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		BufferedImage cursorImage = new BufferedImage(1, 1, BufferedImage.TRANSLUCENT); 
+		Point hotSpot = new Point(0,0);
+		Cursor invisibleCursor = toolkit.createCustomCursor(cursorImage, hotSpot, "InvisibleCursor");        
+		w.setCursor(invisibleCursor);
+		im = new ImageIcon(getClass().getResource("/images/startCiemny.png")).getImage();
+		loader = new Loader(this);
+		
+		//----------------  Inicjacja Eventów --------------
+		w.addKeyListener(new Keys(this));
+		//w.addMouseMotionListener(this);
+		//w.addMouseListener(this);
+	}
+
+	@Override
+	public void draw(Graphics2D g) {
+
+	}
+}

@@ -1,0 +1,55 @@
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.Window;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.swing.ImageIcon;
+import javax.swing.plaf.basic.BasicTabbedPaneUI.MouseHandler;
+
+import java.awt.Toolkit;
+
+public class Keys implements KeyListener{
+	
+	Core core;
+	List<Key> pressedKeysList;
+	
+	
+	public Keys(Core c){
+		core = c;
+		pressedKeysList = new LinkedList<Key>();
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		System.out.println("Key typed " + e.getKeyChar() + "(" + e.getKeyCode() + ")");
+		e.consume();
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		
+		int key = e.getKeyCode();
+		if(key == KeyEvent.VK_ESCAPE){
+			core.stop();
+			pressedKeysList.add(new Key(e.getKeyCode(), e.getKeyChar()));
+		}else{
+			e.consume();
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		pressedKeysList.remove(new Key(e.getKeyCode(), e.getKeyChar()));
+		e.consume();
+		
+	}
+}

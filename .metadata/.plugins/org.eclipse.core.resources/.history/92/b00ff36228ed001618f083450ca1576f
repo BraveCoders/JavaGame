@@ -1,0 +1,73 @@
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.Window;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.swing.ImageIcon;
+import javax.swing.plaf.basic.BasicTabbedPaneUI.MouseHandler;
+
+import java.awt.Toolkit;
+
+public class Keys implements KeyListener{
+	
+	private Core core;
+	private static List<Key> pressedKeysList = new LinkedList<Key>();
+	
+	
+	public Keys(Core c){
+		core = c;
+	}
+
+	@Override
+	synchronized public void keyTyped(KeyEvent e) {
+		e.consume();
+	}
+
+	@Override
+	synchronized public void keyPressed(KeyEvent e) {
+		
+		int key = e.getKeyCode();
+		if(key == KeyEvent.VK_ESCAPE){
+			core.stop();
+		}else{
+			boolean found  = false;
+			Key k = new Key(e.getKeyCode(), e.getKeyChar());
+			for(Key kk : pressedKeysList)
+				if(k.getCode() == kk.getCode() && k.getKey()==kk.getKey()){
+					found = true;
+					break;
+				}
+			if(!found)
+				pressedKeysList.add(k);
+			e.consume();
+		}
+		
+	}
+
+	@Override
+	synchronized public void keyReleased(KeyEvent e) {
+		Key k = new Key(e.getKeyCode(), e.getKeyChar());
+		boolean found = false;
+		for(Key kk : pressedKeysList)
+			if(k.getCode() == kk.getCode() && k.getKey()==kk.getKey()){
+				found = true;
+				k = kk;
+				break;
+			}
+		if(found) pressedKeysList.remove(k);
+		e.consume();
+		
+	}
+
+	synchronized public static List<Key> getPressedKeysList() {
+		return pressedKeysList;
+	}
+}

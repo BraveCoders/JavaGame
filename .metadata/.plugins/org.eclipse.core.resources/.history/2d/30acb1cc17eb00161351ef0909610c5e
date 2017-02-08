@@ -1,0 +1,4 @@
+
+public class GameMouse implements MouseInputListener{
+
+}

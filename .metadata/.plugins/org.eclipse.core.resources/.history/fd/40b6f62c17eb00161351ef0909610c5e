@@ -1,0 +1,13 @@
+import java.awt.Graphics2D;
+
+public class GameSys extends Core {
+
+	public static void main(String args[]){
+		new GameSys().run();
+	}
+
+	@Override
+	public void draw(Graphics2D g) {
+
+	}
+}
